@@ -2,8 +2,8 @@
   <div id="app">
     <hello></hello>
 		<p>Enter the row and column (product of row and column should be a multilple of 2) </p>
-		<input v-model="rows">
-		<input v-model="columns">
+		<input v-model.number="rows">
+		<input v-model.number="columns">
 		<br>
 		<br>
 		<puzzle :rows="rows" :columns="columns" :colorArray="getColorArray"></puzzle>

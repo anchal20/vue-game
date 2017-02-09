@@ -2,12 +2,11 @@
 	<div class="">
 		<div class="frame">
 			<div class="rows" v-for="(row, rIndex) in rows">
-				<div class="columns" v-for="(column, index) in columns" @click='selectBox($event)' :data-column="index" :data-row="rIndex">
+				<div class="columns" v-for="(column, index) in columns" @click='selectBox($event)' :data-row="rIndex">
 					<div class="flipper">
 						<div class="front">
-							{{returnColorArray}} {{counterA}}
 						</div>
-						<div class="back" v-bind:style="">
+						<div class="back" v-bind:style="[getRandomColor()]">
 
 						</div>
 					</div>
@@ -27,20 +26,8 @@ export default {
 		}
 	},
 	computed: {
-		returnColorArray: function() {
-			for(var i in this.colorArray) {
-
-				return this.colorArray[i];
-			}
-		},
-		counterA: {
-			get: function() {
-				return this.counter++;
-			},
-			set: function(a) {
-				this.counter = a + 1;
-			}
-
+		colorCount: function() {
+			return this.colorArray.length;
 		}
 	},
 	beforeMount: function() {
@@ -50,15 +37,18 @@ export default {
 
 	},
 	created: function() {
-		for(var i in this.colorArray) {
-			console.log(this.colorArray.length);
-			this.counterA = 1;
-		}
+		
 	},
 	methods: {
 		selectBox: function(e) {
 			console.log(e.target.parentElement.parentElement);
 			e.target.parentElement.parentElement.classList.toggle('hover');
+		},
+		getRandomColor: function() {
+			var random = Math.floor(Math.random() * this.colorCount);
+			return {
+				'background-color': this.colorArray[random]
+			}
 		}
 	}
 }
