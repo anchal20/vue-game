@@ -1,7 +1,12 @@
 <template>
   <div id="app">
     <hello></hello>
-		<puzzle :rows="rows" :columns="columns"></puzzle>
+		<p>Enter the row and column (product of row and column should be a multilple of 2) </p>
+		<input v-model="rows">
+		<input v-model="columns">
+		<br>
+		<br>
+		<puzzle :rows="rows" :columns="columns" :colorArray="getColorArray"></puzzle>
   </div>
 </template>
 
@@ -20,6 +25,29 @@ export default {
 			rows: 4,
 			columns: 3
 		}
+	},
+	computed: {
+		getColorArray: function() {
+			let blocks = (this.rows * this.columns)/2;
+			let colorArray = [];
+			for(var i=0; i < blocks; i++) {
+				let red = Math.round(Math.random() * 256);
+				let blue = Math.round(Math.random() * 256);
+				let green = Math.round(Math.random() * 256);
+				let color = "rgb(" + red + "," + blue + "," + green + ")";
+				colorArray.push(color);
+				colorArray.push(color);
+			}
+			console.log(colorArray);
+			//this.$set(this, colorArray, colorArray);
+			return colorArray;
+		}
+	},
+	created: function() {
+
+	},
+	methods: {
+
 	}
 }
 </script>

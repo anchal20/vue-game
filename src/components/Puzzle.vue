@@ -2,12 +2,12 @@
 	<div class="">
 		<div class="frame">
 			<div class="rows" v-for="(row, rIndex) in rows">
-				<div class="columns" v-for="(column, index) in columns" @click='selectBox($event)' :data-column="counter++" :data-row="rIndex">
+				<div class="columns" v-for="(column, index) in columns" @click='selectBox($event)' :data-column="index" :data-row="rIndex">
 					<div class="flipper">
 						<div class="front">
-
+							{{returnColorArray}} {{counterA}}
 						</div>
-						<div class="back">
+						<div class="back" v-bind:style="">
 
 						</div>
 					</div>
@@ -18,16 +18,29 @@
 </template>
 
 <script>
+
 export default {
-	props: ['rows', 'columns'],
+	props: ['rows', 'columns', 'colorArray'],
 	data: function() {
 		return {
-			counter: 0,
-			color: {
-				red: 0,
-				blue: 0,
-				green: 0
+			counter: 0
+		}
+	},
+	computed: {
+		returnColorArray: function() {
+			for(var i in this.colorArray) {
+
+				return this.colorArray[i];
 			}
+		},
+		counterA: {
+			get: function() {
+				return this.counter++;
+			},
+			set: function(a) {
+				this.counter = a + 1;
+			}
+
 		}
 	},
 	beforeMount: function() {
@@ -35,6 +48,12 @@ export default {
 	},
 	mounted: function() {
 
+	},
+	created: function() {
+		for(var i in this.colorArray) {
+			console.log(this.colorArray.length);
+			this.counterA = 1;
+		}
 	},
 	methods: {
 		selectBox: function(e) {
@@ -85,7 +104,6 @@ export default {
 	}
 	.back {
 		transform: rotateY(180deg);
-		background-color: red;
 	}
 	.columns.hover .flipper {
 		transform: rotateY(180deg);
