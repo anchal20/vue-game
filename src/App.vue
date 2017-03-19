@@ -9,7 +9,7 @@
 		<div class="wrapper">
 			<div class="rows" >
 				<div class="columns" v-for="(block, index) in blocks"
-				@click.prevent="activeColors.includes(backgroundColors[index]) || selectedIndx.includes(index) ? 'null' : flipCard(index)"
+				@click="activeColors.includes(backgroundColors[index]) || selectedIndx.includes(index) ? 'null' : flipCard(index)"
 				:class="{
 					active: activeColors.includes(backgroundColors[index]),
 					selected: selectedIndx.includes(index)
@@ -147,12 +147,18 @@ export default {
 }
 .columns {
 	border: 1px solid #000;
+	border-bottom: none;
+	border-right: none;
 	perspective: 1000px;
 	display: flex;
 	cursor: pointer;
 	width: 25%;
-	height: 50px;
+	height: 100px;
 }
+.columns:nth-child(3n) {
+	border-right: 1px solid #000;
+}
+
 .flipper {
 	transition: 0.6s;
 	transform-style: preserve-3d;
