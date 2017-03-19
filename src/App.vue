@@ -37,7 +37,8 @@ export default {
 			columns: 3,
 			backgroundColors: [],
 			activeColors: [],
-			selectedIndx: []
+			selectedIndx: [],
+      cardFlipped: 0
 		}
 	},
 	computed: {
@@ -56,7 +57,18 @@ export default {
 		columns: function() {
 			this.reset();
 			this.resetRowColumn();
-		}
+		},
+    cardFlipped: function() {
+      let blocks = (this.rows * this.columns)/2;
+      if(this.cardFlipped == blocks) {
+        setTimeout(() => {
+          alert("Congrats! You have won the game!");
+          this.reset();
+          this.cardFlipped = 0;
+        }, 1000);
+
+      }
+    }
 	},
 	methods: {
 		setBackgroundColors: function() {
@@ -100,6 +112,7 @@ export default {
 				if(this.backgroundColors[index] == this.backgroundColors[this.selectedIndx[0]]) {
 					this.activeColors.push(this.backgroundColors[index]);
 					this.selectedIndx = [];
+          this.cardFlipped++;
 				} else {
 					this.selectedIndx.push(index);
 					setTimeout(() => {
@@ -115,7 +128,7 @@ export default {
 		},
 		resetRowColumn: function() {
 			if(this.blocks%2 !== 0) {
-				alert('Only even blocks are allowed, Your puzzle is reset to original value');
+				alert('Only even number of blocks are allowed, Your puzzle is reset to original value');
 				this.reset();
 				this.rows = 4;
 				this.columns = 3;

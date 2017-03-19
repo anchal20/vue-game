@@ -36,10 +36,8 @@ export default {
 	methods: {
 		selectBox: function(color) {
 			// e.target.parentElement.parentElement.classList.toggle('hover');
-			console.log(color['background-color']);
 			var col = color['background-color'];
 			this.selectedColor.push(col);
-			console.log(this.selectedColor.length);
 			if(this.selectedColor.length > 1) {
 				if(this.selectedColor[0] == this.selectedColor[1]) {
 					this.succesColors.push(this.selectedColor[0]);
